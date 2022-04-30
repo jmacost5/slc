@@ -341,12 +341,12 @@ geojson_write( slc, file="pitt_dorling_10.geojson", geometry="polygon" )
 
 
 ```{r}
-row.ids <- sapply( slot( sea, "polygons" ), function(x) slot( x, "ID" ) )
-row.names( sea ) <- row.ids
+row.ids <- sapply( slot( slc, "polygons" ), function(x) slot( x, "ID" ) )
+row.names( slc ) <- row.ids
 ```
 
 ```{r}
-slc <- spTransform( sea, CRS("+proj=longlat +datum=WGS84") )
-geojson_write( sad, file="slc_dorling.geojson", geometry="polygon" )
+slc <- spTransform( slc, CRS("+proj=longlat +datum=WGS84") )
+geojson_write( slc, file="slc_dorling.geojson", geometry="polygon" )
 ```
 
