@@ -157,8 +157,8 @@ renderPlot({
   
 get_data <- 
   reactive({
-             slc.sf <- 
-             slc.sf %>% 
+            slc.sf <- 
+            slc.sf %>% 
              mutate( q = ntile( get(input$demographics ), 10 ) )
             
           })
