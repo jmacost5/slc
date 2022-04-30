@@ -150,11 +150,6 @@ Row {.tabset}
 
 
 ```{r}
-#map.variables <- c("mhv.00","mhv.10","mhv.change","mhv.growth")
-
-#map.values <- c("mhv.00","mhv.10","mhv.change","mhv.growth")
-
-#map.labels <- c("Median Home Value 2000","Median Home Value 2010","Value Change 2000-2010","Growth in Home Value")
 
 renderPlot({
 
@@ -164,14 +159,8 @@ get_data <-
   reactive({
              slc.sf <- 
              slc.sf %>% 
-             mutate( q = ntile( get(input$demographics), 10 ) )
-             #mutate(variable=case_when( 
-            #variable=="mhv.00" ~ "Median Home Value 2000",
-            #variable=="mhv.10" ~ "Median Home Value 2010",
-            #variable=="mhv.change" ~ "Value Change 2000-2010"
-            #variable=="mhv.growth" ~ "Growth in Home Value")) %>%
-            #select(-moe) %>%  
-            #spread(variable, estimate) #Spread moves rows into columns
+             mutate( q = ntile( get(input$demographics ), 10 ) )
+            
           })
 
   
@@ -297,7 +286,7 @@ Row {.tabset}
 ```{r}
 #d <- merge( slc, d, by.x="geoid-01", by.y="geoid-02", all.x=TRUE )
 #x <- d$tractid 
-head( slc@data)
+#head( slc@data)
 
 #x <- gsub( "fips", "", x )
 #x <- gsub( "-", "", x )
