@@ -284,19 +284,6 @@ Row {.tabset}
 
 
 ```{r}
-#d <- merge( slc, d, by.x="geoid-01", by.y="geoid-02", all.x=TRUE )
-#x <- d$tractid 
-#head( slc@data)
-
-#x <- gsub( "fips", "", x )
-#x <- gsub( "-", "", x )
-#head( x )
-
-#x <- as.numeric( x )
-
-# remember to add the variable back to the dataset
-#d$tractid2 <- x 
-
 
 renderPlot({
 
@@ -306,7 +293,7 @@ get_data <-
   reactive({
              slc.sf <- 
              slc.sf %>% 
-             mutate( q = ntile( get(input$home.value), 10 ) )  
+             mutate( q = ntile( get(input$demographics), 10 ) )  
           })
 
   
@@ -336,7 +323,7 @@ renderPlot({
 # x <-  d[ "pnhwht12" ] %>% unlist()
 
   
-get_variable_x <- reactive({ d[ input$home.value ] })
+get_variable_x <- reactive({ d[ input$demographics ] })
 
 x <- get_variable_x() %>% unlist() %>% as.numeric()
 
@@ -460,6 +447,12 @@ HTML(
 # HTML( reg.table )
 ```
 
+
+
+### Correlation Plots 
+
+
+
 ```{r}
 panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
 {
@@ -511,7 +504,7 @@ jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
 ```
 
 
-### Correlation Plots 
+
 
 ```{r}
 renderPlot({
