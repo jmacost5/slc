@@ -46,6 +46,13 @@ library( tmap )
 library( pals )
 library( rgdal )
 library( mclust )
+
+#other
+library(tidycensus)
+library(tidyverse)
+library(viridis)
+library(plyr)
+library(gtools)
 ```
 
 
@@ -56,6 +63,7 @@ library( mclust )
 
 # load dorling cartogram from github
 # map already contains census data and groups from clustering 
+census_api_key("554b96cd2974f90056633a65d99ece26bcf12905")
 
 github.url <- "https://raw.githubusercontent.com/jmacost5/slc/main/slc_dorling.geojson"
 slc <- geojson_read( x=github.url,  what="sp" )
@@ -142,6 +150,11 @@ Row {.tabset}
 
 
 ```{r}
+#map.variables <- c("mhv.00","mhv.10","mhv.change","mhv.growth")
+
+#map.values <- c("mhv.00","mhv.10","mhv.change","mhv.growth")
+
+#map.labels <- c("Median Home Value 2000","Median Home Value 2010","Value Change 2000-2010","Growth in Home Value")
 
 renderPlot({
 
@@ -151,7 +164,14 @@ get_data <-
   reactive({
              slc.sf <- 
              slc.sf %>% 
-             mutate( q = ntile( get(input$demographics), 10 ) )  
+             mutate( q = ntile( get(input$demographics), 10 ) )
+             #mutate(variable=case_when( 
+            #variable=="mhv.00" ~ "Median Home Value 2000",
+            #variable=="mhv.10" ~ "Median Home Value 2010",
+            #variable=="mhv.change" ~ "Value Change 2000-2010"
+            #variable=="mhv.growth" ~ "Growth in Home Value")) %>%
+            #select(-moe) %>%  
+            #spread(variable, estimate) #Spread moves rows into columns
           })
 
   
@@ -177,6 +197,7 @@ ggplot( get_data() ) +
 
 
 ```{r}
+
 renderPlot({
 
 # extract vector x from the data frame 
@@ -274,18 +295,18 @@ Row {.tabset}
 
 
 ```{r}
-d <- merge( slc, d, by.x="geoid-01", by.y="geoid-02", all.x=TRUE )
-x <- d$tractid 
-head( x )
+#d <- merge( slc, d, by.x="geoid-01", by.y="geoid-02", all.x=TRUE )
+#x <- d$tractid 
+head( slc@data)
 
-x <- gsub( "fips", "", x )
-x <- gsub( "-", "", x )
-head( x )
+#x <- gsub( "fips", "", x )
+#x <- gsub( "-", "", x )
+#head( x )
 
-x <- as.numeric( x )
+#x <- as.numeric( x )
 
 # remember to add the variable back to the dataset
-d$tractid2 <- x 
+#d$tractid2 <- x 
 
 
 renderPlot({
