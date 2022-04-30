@@ -171,13 +171,13 @@ ggplot( get_data() ) +
           caption = "Source: Harmonized Census Files",
           fill = "Population Deciles" ) +
     scale_fill_gradientn( colours=rev(brewer.ylorbr(10)), guide = "colourbar" ) + 
-    xlim( xmin = -12333000, xmax = -12533000 ) + 
-    ylim( ymin = 5034000, ymax = 4934000 )
+    xlim( xmin = -12533000, xmax = -12333000 ) +
+ylim( ymin = 4934000, ymax = 5034000 )
 
 })
 
-#xmin = -12333000, xmax = -12533000, 
-#ymax = 4934000, ymin = 5034000
+#xmin = -12300000, xmax = -12600000
+#ymax = 5050000, ymin = 4900000
 ```
 
 
@@ -221,10 +221,11 @@ Neighborhoods
 ```{r}
 
 # define the bounding box corners 
-bb <- st_bbox( c( xmin = -12333000, xmax = -12533000, 
-                  ymax = 4934000, ymin = 5034000 ), 
+bb <- st_bbox( c( xmin = -12533000, xmax = -12333000 , 
+                  ymin = 4934000, ymax = 5034000 ), 
                crs = st_crs("+init=epsg:3395"))
-#-12443808.43, 4944648.14
+#xmax = -12300000, xmin = -12600000
+#ymax = 5050000, ymin = 4900000
 
 # ADD YOUR CUSTOM LABELS TO THE CLUSTERS 
 
@@ -293,23 +294,23 @@ get_data <-
   reactive({
              slc.sf <- 
              slc.sf %>% 
-             mutate( q = ntile( get(input$demographics), 10 ) )  
+             mutate( q = ntile( get(input$home.value), 10 ) )  
           })
 
   
 ggplot( get_data() ) +
     geom_sf( aes( fill = q ), color=NA ) +
     coord_sf( datum=NA ) +
-    labs( title = paste0( "Spatial Distribution of Home Values: ", toupper(input$demographics) ),
+    labs( title = paste0( "Spatial Distribution of Home Values: ", toupper(input$home.value) ),
           caption = "Source: Harmonized Census Files",
           fill = "Home Value Deciles" ) +
     scale_fill_gradientn( colours=rev(brewer.ylorbr(10)), guide = "colourbar" ) + 
-    xlim( xmin = -12333000, xmax = -12533000 ) + 
-    ylim( ymax = 4934000, ymin = 5034000 )
+   xlim( xmin = -12533000, xmax = -12333000 ) +
+ylim( ymin = 4934000, ymax = 5034000 )
 
 })
-#xmin = -12333000, xmax = -12533000, 
-#ymax = 4934000, ymin = 5034000
+#xmin = -12300000, xmax = -12600000, 
+#ymax = 5050000, ymin = 4900000
 
 ```
 
@@ -323,7 +324,7 @@ renderPlot({
 # x <-  d[ "pnhwht12" ] %>% unlist()
 
   
-get_variable_x <- reactive({ d[ input$demographics ] })
+get_variable_x <- reactive({ d[ input$home.value ] })
 
 x <- get_variable_x() %>% unlist() %>% as.numeric()
 

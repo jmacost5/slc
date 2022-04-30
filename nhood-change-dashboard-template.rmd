@@ -238,14 +238,14 @@ Inputs {.sidebar}
 ```{r}
 
 button.labels <- c("Median Home Value 2000","Median Home Value 2010","Value Change 2000-2010","Growth in Home Value")
-button.values <- c("mhv.2000","mhv.2010","mhv.change","mhv.growth")
+button.values <- c("mhv.00","mhv.10","mhv.change","mhv.growth")
   
 radioButtons( inputId="home.value", 
               label = h3("Home Values"),
               # choices = these.variables, 
               choiceNames=button.labels,
               choiceValues=button.values,
-              selected="mhv.2000")
+              selected="mhv.00")
 
 ```
 
@@ -332,7 +332,7 @@ Inputs {.sidebar}
 ```{r}
 
 button.labels <- c("Median Home Value 2000","Median Home Value 2010","Value Change 2000-2010","Growth in Home Value")
-button.values <- c("mhv.2000","mhv.2010","mhv.change","mhv.growth")
+button.values <- c("mhv.00","mhv.10","mhv.change","mhv.growth")
   
 radioButtons( inputId="dv", 
               label = h3("Select Your Dependent Variable"),
